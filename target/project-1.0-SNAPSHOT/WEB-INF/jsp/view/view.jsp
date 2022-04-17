@@ -43,8 +43,8 @@
             </c:forEach><br /><br />
         </c:if>
         <a href="<c:url value="/lecture" />">Return to list lectures</a>
-        <h2>Comment: </h2><br>
-        <security:authorize access="hasRole('ADMIN')">
+        <h2>Lecture Comment: </h2><br>
+        <security:authorize access="hasAnyRole('USER','ADMIN')"> 
             <c:choose>
                 <c:when test="${fn:length(comments) == 0}">
                     <i>There are comment in the system.</i>
@@ -58,9 +58,11 @@
                             <tr>
                                 <td>${comment.username}</td>
                                 <td>${comment.comment}</td>
+                                <security:authorize access="hasRole('ADMIN')">
                                 <td>
-                                    [<a href="<c:url value="/lecture/deletecomment/${comment.username}" />">Delete</a>]
+                                    [<a href="<c:url value="/lecture/deletecomment/${comment.id}" />">Delete</a>]
                                 </td>
+                                </security:authorize>
                             </tr>
                         </c:forEach>
                     </table>

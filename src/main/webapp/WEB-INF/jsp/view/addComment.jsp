@@ -19,8 +19,5 @@
             <br /><br />
             <input type="submit" value="Add Comment"/>
         </form:form>
-        <form:form action="/project/lecture/list" method="GET">
-            <input type="submit" value="Cancel"/>
-        </form:form>
     </body>
 </html>

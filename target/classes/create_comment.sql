@@ -1,7 +1,6 @@
 CREATE TABLE comment (
+    id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     username VARCHAR(50) NOT NULL,
     comment VARCHAR(255) NOT NULL,
-    PRIMARY KEY (username)
+    PRIMARY KEY (id)
 );
-INSERT INTO comment VALUES ('asd', '123');
-INSERT INTO comment VALUES ('cxz', '1234');

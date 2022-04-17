@@ -55,8 +55,8 @@
         </form:form>
 
         [<a href="<c:url value="/lecture/list" />">back </a>]
-        <h2>Comment: </h2><br>
-        <security:authorize access="hasRole('ADMIN')">
+        <h2>Vote Comment: </h2><br>
+        <security:authorize access="hasAnyRole('USER','ADMIN')"> 
             <c:choose>
                 <c:when test="${fn:length(votecomments) == 0}">
                     <i>There are comment in the system.</i>
@@ -70,9 +70,11 @@
                             <tr>
                                 <td>${votecomment.username}</td>
                                 <td>${votecomment.comment}</td>
+                                <security:authorize access="hasRole('ADMIN')">
                                 <td>
-                                    [<a href="<c:url value="/vote/deletecomment/${votecomment.username}" />">Delete</a>]
+                                    [<a href="<c:url value="/vote/deletecomment/${votecomment.id}" />">Delete</a>]
                                 </td>
+                                </security:authorize>
                             </tr>
                         </c:forEach>
                     </table>

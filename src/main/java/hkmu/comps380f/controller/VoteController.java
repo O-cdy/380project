@@ -174,7 +174,7 @@ public class VoteController {
     @GetMapping("/edit/{question}")
     public ModelAndView edit(@PathVariable("question") String question, Principal principal) {
         String question1 = new String(question + "?");
-        System.out.println("question is :"+question);
+        System.out.println("question is :" + question);
         UserMc userMc = usermcdao.findByQuestion(question1);
         System.out.println("usermc is :" + userMc);
         UserMcForm userMcFormnew = new UserMcForm();
@@ -275,6 +275,12 @@ public class VoteController {
         return new RedirectView("/lecture/list", true);
     }
 
+    @GetMapping("/deletecomment/{id}")
+    public View deleteComment(@PathVariable("id") int id) {
+        votecommentUserRepo.delete(votecommentUserRepo.findById(id).orElse(null));
+        return new RedirectView("/lecture/list", true);
+    }
+
     @GetMapping("/create/comment")
     public ModelAndView createVoteComment(Principal principal) {
         ModelAndView mav = new ModelAndView("addVoteComment", "Form", new VoteController.Form());
@@ -284,10 +290,8 @@ public class VoteController {
 
     @PostMapping("/create/comment")
     public View createVoteComment(VoteController.Form form, Principal principal) throws IOException {
-        VoteComment comment = new VoteComment(principal.getName(), form.getComment());
-        AllComment allcomment = new AllComment(principal.getName(), form.getComment());
-        votecommentUserRepo.save(comment);
-        allcommentUserRepo.save(allcomment);
+        votecommentService.storeVoteComment(principal.getName(), form.getComment());
+        allcommentService.storeAllComment(principal.getName(), form.getComment());
         return new RedirectView("/lecture/list", true);
     }
 

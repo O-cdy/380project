@@ -202,9 +202,9 @@ public class LectureController {
         return "redirect:/lecture/view/" + lectureId;
     }
 
-    @GetMapping("/deletecomment/{username}")
-    public View deleteComment(@PathVariable("username") String username) {
-        commentUserRepo.delete(commentUserRepo.findById(username).orElse(null));
+    @GetMapping("/deletecomment/{id}")
+    public View deleteComment(@PathVariable("id") int id) {
+        commentUserRepo.delete(commentUserRepo.findById(id).orElse(null));
         return new RedirectView("/lecture/list", true);
     }
 
@@ -217,10 +217,8 @@ public class LectureController {
 
     @PostMapping("/create/comment")
     public View createComment(Form form, Principal principal) throws IOException {
-        Comment comment = new Comment(principal.getName(), form.getComment());
-        AllComment allcomment = new AllComment(principal.getName(), form.getComment());
-        commentUserRepo.save(comment);
-        allcommentUserRepo.save(allcomment);
+        commentService.storeComment(principal.getName(), form.getComment());
+        allcommentService.storeAllComment(principal.getName(), form.getComment());
         return new RedirectView("/lecture/list", true);
     }
 

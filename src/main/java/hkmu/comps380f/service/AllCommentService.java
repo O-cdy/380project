@@ -23,4 +23,11 @@ public class AllCommentService {
         return allcomment.findAll();
 
     }
+ public void storeAllComment(String username, String comment) {
+        AllComment newcomment = new AllComment();
+        newcomment.setUsername(username);
+        newcomment.setComment(comment);
+        allcomment.save(newcomment);
+
+    }
 }

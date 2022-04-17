@@ -13,24 +13,26 @@
     </head>
     <body>
         <h1>HistoryComment</h1>
-            <c:choose>
-                <c:when test="${fn:length(allcomments) == 0}">
-                    <i>There are comment in the system.</i>
-                </c:when>
-                <c:otherwise>
-                    <table>
+        <c:choose>
+            <c:when test="${fn:length(allcomments) == 0}">
+                <i>There are comment in the system.</i>
+            </c:when>
+            <c:otherwise>
+                <table>
+                    <tr>
+                        <th>Username</th><th>Comment</th>
+                    </tr>
+                    <c:forEach items="${allcomments}" var="allcomment">
                         <tr>
-                            <th>Username</th><th>Comment</th>
+                            <td>${allcomment.username}</td>
+                            <td>${allcomment.comment}</td>
                         </tr>
-                        <c:forEach items="${allcomments}" var="allcomment">
-                            <tr>
-                                <td>${allcomment.username}</td>
-                                <td>${allcomment.comment}</td>
-                            </tr>
-                        </c:forEach>
-                    </table>
-                </c:otherwise>
-            </c:choose>
-        <a href="<c:url value="/lecture/create/comment" />">Write new comment</a><br /><br />
+                    </c:forEach>
+                </table>
+            </c:otherwise>
+        </c:choose>
+        <form:form action="/project/lecture/list" method="GET">
+            <input type="submit" value="Cancel"/>
+        </form:form>
     </body>
 </html>
