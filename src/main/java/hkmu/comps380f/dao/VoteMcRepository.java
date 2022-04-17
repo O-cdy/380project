@@ -5,4 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface VoteMcRepository extends JpaRepository<VoteMc, Integer> {
     VoteMc findByQuestionAndMc(String question,String mc);
+    void deleteByQuestion(String question);
 }

@@ -71,13 +71,18 @@
                 <c:forEach items="${votes}" var="vote">
                     Poll question:
                     [<a href="<c:url value="/vote/edit/${vote.question}" />">${vote.question}</a>]
-                    [<a href="<c:url value="/vote/delete/${vote.question}" />">Delete</a>]<br>
+                    <security:authorize access="hasAnyRole('ADMIN')">
+                        [<a href="<c:url value="/vote/delete/${vote.question}" />">Delete</a>]<br>
+                    </security:authorize><br>
 
                 </c:forEach>
             </c:otherwise>
         </c:choose>
 
-        [<a href="<c:url value="/vote/add" />">add poll</a>]
+        <security:authorize access="hasAnyRole('ADMIN')">
+            [<a href="<c:url value="/vote/add" />">add poll</a>]
+        </security:authorize>
+
         <br>
         <br>
         <br>

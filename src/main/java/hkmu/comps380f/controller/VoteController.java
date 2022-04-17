@@ -17,6 +17,7 @@ import hkmu.comps380f.service.AllCommentService;
 import hkmu.comps380f.service.CommentService;
 import hkmu.comps380f.service.VoteCommentService;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -175,17 +176,19 @@ public class VoteController {
     public ModelAndView edit(@PathVariable("question") String question, Principal principal) {
         String question1 = new String(question + "?");
         System.out.println("question is :"+question);
-        UserMc userMc = usermcdao.findByQuestion(question1);
+        UserMc userMc = usermcdao.findByUsernameAndQuestion(principal.getName(), question1);
         System.out.println("usermc is :" + userMc);
         UserMcForm userMcFormnew = new UserMcForm();
         if (userMc == null) {
+            //user 没有选择过
             ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
             modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         } else {
+            //user 选择过
             userMcFormnew.setUsername(userMc.getUsername());
-            userMcFormnew.setQuestion(userMc.getQuestion());
+            userMcFormnew.setQuestion(userMc.getVote().getQuestion());
             userMcFormnew.setMc(userMc.getMc());
             ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
@@ -205,15 +208,16 @@ public class VoteController {
         String question1 = new String(question + "?");
         System.out.println("the mc from form is :" + usermcform.getMc());
         LectureUser user = userdao.findById(principal.getName()).orElse(null);
-        UserMc userMc = usermcdao.findByQuestion(question1);
+        UserMc userMc = usermcdao.findByUsernameAndQuestion(principal.getName(), question1);
         //VoteMc votemc_before_edit = votemcdao.findVoteMcByQuestionAndMc(question, userMc.getMc());
         //VoteMc votemc_after_edit = votemcdao.findVoteMcByQuestionAndMc(question, usermcform.getMc());
-        if (!usermcdao.existsByQuestion(question1)) {
+        if (userMc==null) {
             //用户没有选择过,usermc为空
             System.out.println("user is:" + user);
             System.out.println("question is:" + question1);
             System.out.println("mc is :" + usermcform.getMc());
-            UserMc usermc = new UserMc(user, question1, usermcform.getMc());
+            Vote vote=votedao.findById(question1).orElse(null);
+            UserMc usermc = new UserMc(user, vote, usermcform.getMc());
             usermcdao.save(usermc);
             System.out.println("question is :" + question1);
             System.out.println("getmc is :" + usermcform.getMc());
@@ -270,8 +274,17 @@ public class VoteController {
     }
 
     @GetMapping("/delete/{question}")
-    public View deleteUser(@PathVariable("question") String question) {
-        votedao.delete(votedao.findById(question).orElse(null));
+    public View deleteUser(@PathVariable("question") String question,Principal principal) {
+        String question1=new String(question+"?");
+        System.out.println(question1);
+        //votemcdao.deleteByQuestion(question1);
+        //usermcdao.deleteByQuestion(question1);
+        //votedao.delete(votedao.findById(question1).orElse(null));
+        //votedao.deleteById(question1);
+        votedao.delete(votedao.findById(question1).orElse(null));
+        //usermcdao.delete(usermcdao.findByUsernameAndQuestion(principal.getName(), question1));
+
+
         return new RedirectView("/lecture/list", true);
     }
 

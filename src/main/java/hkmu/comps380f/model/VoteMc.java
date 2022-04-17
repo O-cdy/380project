@@ -17,7 +17,7 @@ public class VoteMc implements Serializable {
 
     private int count;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "question")
     private Vote vote;
 

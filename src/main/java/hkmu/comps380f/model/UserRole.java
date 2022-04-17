@@ -23,7 +23,7 @@ public class UserRole implements Serializable {
     private String username;
     private String role;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "username")
     private LectureUser user;
 

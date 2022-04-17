@@ -13,7 +13,7 @@ public class UserMc implements Serializable {
     @Column(insertable = false, updatable = false)
     private String username;
 
-
+    @Column(insertable = false, updatable = false)
     private String question;
 
     @Column(name="mc")
@@ -23,6 +23,11 @@ public class UserMc implements Serializable {
     @JoinColumn(name = "username")
     private LectureUser user;
 
+    //test
+    @ManyToOne
+    @JoinColumn(name = "question")
+    private Vote vote;
+
 
 
     public UserMc() {
@@ -30,9 +35,9 @@ public class UserMc implements Serializable {
 
 
 
-    public UserMc(LectureUser user,String question ,String mc) {
+    public UserMc(LectureUser user,Vote vote ,String mc) {
         this.user = user;
-        this.question=question;
+        this.vote=vote;
         this.mc=mc;
     }
 
@@ -52,12 +57,12 @@ public class UserMc implements Serializable {
         this.username = username;
     }
 
-    public String getQuestion() {
-        return question;
+    public Vote getVote() {
+        return vote;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setVote(Vote vote) {
+        this.vote = vote;
     }
 
     public String getMc() {
