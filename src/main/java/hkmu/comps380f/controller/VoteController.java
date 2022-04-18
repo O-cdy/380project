@@ -183,7 +183,7 @@ public class VoteController {
             //user 没有选择过
             ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
-            modelandview.addObject("votecomments", votecommentUserRepo.findAll());
+            //modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         } else {
             //user 选择过
@@ -192,7 +192,7 @@ public class VoteController {
             userMcFormnew.setMc(userMc.getMc());
             ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
-            modelandview.addObject("votecomments", votecommentUserRepo.findAll());
+            //modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         }
         //UserMcForm userMcFormnew=new  UserMcForm(userMc.getUsername(),userMc.getQuestion(),userMc.getMc());
@@ -217,8 +217,7 @@ public class VoteController {
             System.out.println("question is:" + question1);
             System.out.println("mc is :" + usermcform.getMc());
             Vote vote=votedao.findById(question1).orElse(null);
-            UserMc usermc = new UserMc(user, vote, usermcform.getMc());
-            usermcdao.save(usermc);
+            vote.setUsermc(principal.getName(),usermcform.getMc());
             System.out.println("question is :" + question1);
             System.out.println("getmc is :" + usermcform.getMc());
             VoteMc votemc_after_edit = votemcdao.findByQuestionAndMc(question1, usermcform.getMc());
@@ -255,16 +254,16 @@ public class VoteController {
     @PostMapping("/add")
     public View create(Form form) throws IOException {
         List<String> list = new ArrayList<String>();
-        if (form.getMc_a() != "") {
+        if (form.getMc_a() != null) {
             list.add(form.getMc_a());
         }
-        if (form.getMc_b() != "") {
+        if (form.getMc_b() != null) {
             list.add(form.getMc_b());
         }
-        if (form.getMc_c() != "") {
+        if (form.getMc_c() != null) {
             list.add(form.getMc_c());
         }
-        if (form.getMc_d() != "") {
+        if (form.getMc_d() != null) {
             list.add(form.getMc_d());
         }
         Vote vote = new Vote(form.getQuestion(), list);
@@ -274,17 +273,11 @@ public class VoteController {
     }
 
     @GetMapping("/delete/{question}")
-    public View deleteUser(@PathVariable("question") String question,Principal principal) {
+    public View deletevote(@PathVariable("question") String question,Principal principal) {
         String question1=new String(question+"?");
         System.out.println(question1);
-        //votemcdao.deleteByQuestion(question1);
-        //usermcdao.deleteByQuestion(question1);
-        //votedao.delete(votedao.findById(question1).orElse(null));
-        //votedao.deleteById(question1);
-        votedao.delete(votedao.findById(question1).orElse(null));
         //usermcdao.delete(usermcdao.findByUsernameAndQuestion(principal.getName(), question1));
-
-
+        votedao.delete(votedao.findById(question1).orElse(null));
         return new RedirectView("/lecture/list", true);
     }
 

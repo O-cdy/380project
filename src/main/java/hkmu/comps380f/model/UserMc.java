@@ -10,7 +10,7 @@ public class UserMc implements Serializable {
     @Column(name = "user_mc_id")
     private int id;
 
-    @Column(insertable = false, updatable = false)
+    @Column(name = "username")
     private String username;
 
     @Column(insertable = false, updatable = false)
@@ -19,9 +19,7 @@ public class UserMc implements Serializable {
     @Column(name="mc")
     private String mc;
 
-    @ManyToOne
-    @JoinColumn(name = "username")
-    private LectureUser user;
+
 
     //test
     @ManyToOne
@@ -35,8 +33,8 @@ public class UserMc implements Serializable {
 
 
 
-    public UserMc(LectureUser user,Vote vote ,String mc) {
-        this.user = user;
+    public UserMc(String username,Vote vote ,String mc) {
+        this.username = username;
         this.vote=vote;
         this.mc=mc;
     }
@@ -73,11 +71,13 @@ public class UserMc implements Serializable {
         this.mc = mc;
     }
 
-    public LectureUser getUser() {
-        return user;
+
+
+    public String getQuestion() {
+        return question;
     }
 
-    public void setUser(LectureUser user) {
-        this.user = user;
+    public void setQuestion(String question) {
+        this.question = question;
     }
 }

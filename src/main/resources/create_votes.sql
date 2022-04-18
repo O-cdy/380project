@@ -18,7 +18,6 @@ CREATE TABLE user_mc (
                          question VARCHAR(50) NOT NULL,
                          mc VARCHAR(50) NOT NULL,
                          PRIMARY KEY (user_mc_id),
-                         FOREIGN KEY (username) REFERENCES users(username),
                          FOREIGN KEY (question) REFERENCES vote(question)
 
 

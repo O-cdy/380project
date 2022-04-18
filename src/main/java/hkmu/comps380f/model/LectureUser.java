@@ -25,12 +25,10 @@ public class LectureUser implements Serializable {
     private String address;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, orphanRemoval = true)
+
     private List<UserRole> roles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL, orphanRemoval = true)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<UserMc> usermc = new ArrayList<>();
+
 
     public LectureUser() {
     }
@@ -96,11 +94,5 @@ public class LectureUser implements Serializable {
         this.roles = roles;
     }
 
-    public List<UserMc> getUsermc() {
-        return usermc;
-    }
 
-    public void setUsermc(List<UserMc> usermc) {
-        this.usermc = usermc;
-    }
 }

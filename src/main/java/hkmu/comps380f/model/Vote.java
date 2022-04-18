@@ -30,8 +30,8 @@ public class Vote implements Serializable {
         return usermc;
     }
 
-    public void setUsermc(UserMc usermc) {
-        this.usermc.add(usermc);
+    public void setUsermc(String username,String mc ) {
+        this.usermc.add(new UserMc(username,this,mc));
     }
 
     public Vote(String question, List<String> mcs) {
