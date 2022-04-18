@@ -218,6 +218,7 @@ public class VoteController {
             System.out.println("mc is :" + usermcform.getMc());
             Vote vote=votedao.findById(question1).orElse(null);
             vote.setUsermc(principal.getName(),usermcform.getMc());
+            votedao.save(vote);
             System.out.println("question is :" + question1);
             System.out.println("getmc is :" + usermcform.getMc());
             VoteMc votemc_after_edit = votemcdao.findByQuestionAndMc(question1, usermcform.getMc());
@@ -279,6 +280,12 @@ public class VoteController {
         //usermcdao.delete(usermcdao.findByUsernameAndQuestion(principal.getName(), question1));
         votedao.delete(votedao.findById(question1).orElse(null));
         return new RedirectView("/lecture/list", true);
+    }
+
+    @GetMapping("/history")
+    public ModelAndView votehistory(){
+        ModelAndView modelAndView = new ModelAndView("votehistory","votehistory",usermcdao.findAll());
+        return modelAndView;
     }
 
     @GetMapping("/deletecomment/{id}")

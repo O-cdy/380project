@@ -90,5 +90,9 @@
         [<a href="<c:url value="/lecture/historyComment" />">view history comments</a>]
         </security:authorize>
 
+        <security:authorize access="hasAnyRole('USER','ADMIN')">
+            [<a href="<c:url value="/vote/history" />">view history vote</a>]
+        </security:authorize>
+
 
     </body>
