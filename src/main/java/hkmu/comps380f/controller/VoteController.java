@@ -183,7 +183,7 @@ public class VoteController {
             //user 没有选择过
             ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
-            //modelandview.addObject("votecomments", votecommentUserRepo.findAll());
+            modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         } else {
             //user 选择过
@@ -192,7 +192,7 @@ public class VoteController {
             userMcFormnew.setMc(userMc.getMc());
             ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
-            //modelandview.addObject("votecomments", votecommentUserRepo.findAll());
+            modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         }
         //UserMcForm userMcFormnew=new  UserMcForm(userMc.getUsername(),userMc.getQuestion(),userMc.getMc());

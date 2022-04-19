@@ -32,7 +32,7 @@
     </c:otherwise>
 </c:choose>
 <form:form action="/project/lecture/list" method="GET">
-    <input type="submit" value="Cancel"/>
+    <input type="submit" value="back"/>
 </form:form>
 
 </body>

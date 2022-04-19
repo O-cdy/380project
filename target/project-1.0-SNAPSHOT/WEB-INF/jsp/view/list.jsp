@@ -10,9 +10,6 @@
             </form:form>
         </security:authorize>
 
-
-
-
         <security:authorize access="hasAnyRole('USER','ADMIN')"> 
             <p><i> Welcome </i>, ${principal.name} !</p>
 
@@ -70,7 +67,15 @@
             <c:otherwise>
                 <c:forEach items="${votes}" var="vote">
                     Poll question:
-                    [<a href="<c:url value="/vote/edit/${vote.question}" />">${vote.question}</a>]
+                    [
+                    <security:authorize access="hasAnyRole('USER','ADMIN')"> 
+                        <a href="<c:url value="/vote/edit/${vote.question}" />">
+                    </security:authorize>
+                    ${vote.question}
+                    <security:authorize access="hasAnyRole('USER','ADMIN')"> 
+                        </a>
+                    </security:authorize>
+                    ]
                     <security:authorize access="hasAnyRole('ADMIN')">
                         [<a href="<c:url value="/vote/delete/${vote.question}" />">Delete</a>]<br>
                     </security:authorize><br>

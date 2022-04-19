@@ -1,9 +1,3 @@
-<%-- 
-    Document   : historyComment
-    Created on : 2022-4-15, 16:42:43
-    Author     : WANG Weiran
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

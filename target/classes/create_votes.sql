@@ -23,12 +23,7 @@ CREATE TABLE user_mc (
 
 );
 
-INSERT INTO vote VALUES ('have a nice day?');
-INSERT INTO vote_mc(question, mc) VALUES ('have a nice day?', 'good');
-INSERT INTO vote_mc(question, mc) VALUES ('have a nice day?', 'bad');
-INSERT INTO vote_mc(question, mc) VALUES ('have a nice day?', 'sad');
-INSERT INTO vote_mc(question, mc) VALUES ('have a nice day?', 'no sure');
-DELETE FROM NBUSER.VOTE WHERE QUESTION = 'have a nice day?';
+
 
 
 
