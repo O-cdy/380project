@@ -175,63 +175,41 @@ public class VoteController {
     @GetMapping("/edit/{question}")
     public ModelAndView edit(@PathVariable("question") String question, Principal principal) {
         String question1 = new String(question + "?");
-        System.out.println("question is :"+question);
         UserMc userMc = usermcdao.findByUsernameAndQuestion(principal.getName(), question1);
-        System.out.println("usermc is :" + userMc);
         UserMcForm userMcFormnew = new UserMcForm();
         if (userMc == null) {
-            //user 没有选择过
-            ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
+            ModelAndView modelandview = new ModelAndView("voteDetail", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
             modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         } else {
-            //user 选择过
             userMcFormnew.setUsername(userMc.getUsername());
             userMcFormnew.setQuestion(userMc.getVote().getQuestion());
             userMcFormnew.setMc(userMc.getMc());
-            ModelAndView modelandview = new ModelAndView("editvote", "usermcform", userMcFormnew);
+            ModelAndView modelandview = new ModelAndView("voteDetail", "usermcform", userMcFormnew);
             modelandview.addObject("listvote", votedao.findById(question1).orElse(null));
             modelandview.addObject("votecomments", votecommentUserRepo.findAll());
             return modelandview;
         }
-        //UserMcForm userMcFormnew=new  UserMcForm(userMc.getUsername(),userMc.getQuestion(),userMc.getMc());
-        //ModelAndView modelandview=new ModelAndView("editvote","usermcform",userMcFormnew);
-        //modelandview.addObject("listvote",votedao.findById(question));
-        //modelandview.addObject("usermc",usermcdao.findById(username));
 
-        //return modelandview;
     }
 
     @PostMapping("/edit/{question}")
     public View edit(@PathVariable("question") String question, UserMcForm usermcform, Principal principal) {
         String question1 = new String(question + "?");
-        System.out.println("the mc from form is :" + usermcform.getMc());
         LectureUser user = userdao.findById(principal.getName()).orElse(null);
         UserMc userMc = usermcdao.findByUsernameAndQuestion(principal.getName(), question1);
-        //VoteMc votemc_before_edit = votemcdao.findVoteMcByQuestionAndMc(question, userMc.getMc());
-        //VoteMc votemc_after_edit = votemcdao.findVoteMcByQuestionAndMc(question, usermcform.getMc());
         if (userMc==null) {
-            //用户没有选择过,usermc为空
-            System.out.println("user is:" + user);
-            System.out.println("question is:" + question1);
-            System.out.println("mc is :" + usermcform.getMc());
             Vote vote=votedao.findById(question1).orElse(null);
             vote.setUsermc(principal.getName(),usermcform.getMc());
             votedao.save(vote);
-            System.out.println("question is :" + question1);
-            System.out.println("getmc is :" + usermcform.getMc());
             VoteMc votemc_after_edit = votemcdao.findByQuestionAndMc(question1, usermcform.getMc());
-
             votemc_after_edit.setCount(votemc_after_edit.getCount() + 1);
             votemcdao.save(votemc_after_edit);
-        } else {
-            //用户选择过
-            if (userMc.getMc() == usermcform.getMc()) {
-                //如果一样 直接return
-                return new RedirectView("/lecture/list/", true);
-            } else {
-                //如果不一样
+        } else {            
+            if (userMc.getMc().equals(usermcform.getMc()) ) {                
+                return new RedirectView("/lecture/list/",true);
+            } else {                
                 VoteMc votemc_before_edit = votemcdao.findByQuestionAndMc(question1, userMc.getMc());
                 VoteMc votemc_after_edit = votemcdao.findByQuestionAndMc(question1, usermcform.getMc());
                 votemc_before_edit.setCount(votemc_before_edit.getCount() - 1);
@@ -282,9 +260,9 @@ public class VoteController {
         return new RedirectView("/lecture/list", true);
     }
 
-    @GetMapping("/history")
-    public ModelAndView votehistory(){
-        ModelAndView modelAndView = new ModelAndView("votehistory","votehistory",usermcdao.findAll());
+    @GetMapping("/voteHistory")
+    public ModelAndView voteHistory(){
+        ModelAndView modelAndView = new ModelAndView("voteHistory","votehistory",usermcdao.findAll());
         return modelAndView;
     }
 
@@ -308,11 +286,11 @@ public class VoteController {
         return new RedirectView("/lecture/list", true);
     }
 
-    @GetMapping(value = {"/historyComment"})
-    public String historyComment(ModelMap model) {
+    @GetMapping(value = {"/commentHistory"})
+    public String commentHistory(ModelMap model) {
 //        model.addAttribute("lectureDatabase", lectureDatabase);
         model.addAttribute("allcomments", allcommentService.getAllComments());
-        return "historyComment";
+        return "commentHistory";
     }
 
 }

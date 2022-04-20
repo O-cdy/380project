@@ -57,9 +57,14 @@
             </c:otherwise>
         </c:choose>
 
-        <br>
+        <br><br>
         <!--vote page part -->
-        <h2>Poll: </h2><br>
+        <h2>Poll Question List </h2>
+
+        <security:authorize access="hasAnyRole('ADMIN')">
+            [<a href="<c:url value="/vote/add" />">add poll</a>]
+        </security:authorize>
+        <br><br>
         <c:choose>
             <c:when test="${fn:length(votes) == 0}">
                 <i>There are no poll questions in the system.</i>
@@ -70,9 +75,9 @@
                     [
                     <security:authorize access="hasAnyRole('USER','ADMIN')"> 
                         <a href="<c:url value="/vote/edit/${vote.question}" />">
-                    </security:authorize>
-                    ${vote.question}
-                    <security:authorize access="hasAnyRole('USER','ADMIN')"> 
+                        </security:authorize>
+                        ${vote.question}
+                        <security:authorize access="hasAnyRole('USER','ADMIN')"> 
                         </a>
                     </security:authorize>
                     ]
@@ -84,19 +89,17 @@
             </c:otherwise>
         </c:choose>
 
-        <security:authorize access="hasAnyRole('ADMIN')">
-            [<a href="<c:url value="/vote/add" />">add poll</a>]
-        </security:authorize>
+
 
         <br>
         <br>
         <br>
         <security:authorize access="hasAnyRole('USER','ADMIN')">
-        [<a href="<c:url value="/lecture/historyComment" />">view history comments</a>]
+            [<a href="<c:url value="/vote/commentHistory" />">view history comments</a>]
         </security:authorize>
 
         <security:authorize access="hasAnyRole('USER','ADMIN')">
-            [<a href="<c:url value="/vote/history" />">view history vote</a>]
+            [<a href="<c:url value="/vote/voteHistory" />">view history vote</a>]
         </security:authorize>
 
 

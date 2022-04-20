@@ -3,10 +3,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>historyComment</title>
+        <title>Comment History</title>
     </head>
     <body>
-        <h1>HistoryComment</h1>
+        <h1>Comment History</h1>
         <c:choose>
             <c:when test="${fn:length(allcomments) == 0}">
                 <i>There are comment in the system.</i>

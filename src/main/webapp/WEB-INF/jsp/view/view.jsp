@@ -40,9 +40,9 @@
                                 <c:out value="${attachment.name}" /></a></li>
                             </c:if>
                 </ul>
-            </c:forEach><br /><br />
+            </c:forEach><br />
         </c:if>
-        <a href="<c:url value="/lecture" />">Return to list lectures</a>
+
         <h2>Lecture Comment: </h2><br>
         <security:authorize access="hasAnyRole('USER','ADMIN')"> 
             <c:choose>
@@ -59,9 +59,9 @@
                                 <td>${comment.username}</td>
                                 <td>${comment.comment}</td>
                                 <security:authorize access="hasRole('ADMIN')">
-                                <td>
-                                    [<a href="<c:url value="/lecture/deletecomment/${comment.id}" />">Delete</a>]
-                                </td>
+                                    <td>
+                                        [<a href="<c:url value="/lecture/deletecomment/${comment.id}" />">Delete</a>]
+                                    </td>
                                 </security:authorize>
                             </tr>
                         </c:forEach>
@@ -71,5 +71,7 @@
         </security:authorize>
 
         <a href="<c:url value="/lecture/create/comment" />">Write new comment</a><br /><br />
+
+        <a href="<c:url value="/lecture" />">Return to list lectures</a>
     </body>
 </html>
