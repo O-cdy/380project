@@ -24,8 +24,8 @@ C. the list of additional features implemented and any necessary details for run
 
 1. Voting history page of a registered user (including the lecturer and students)
 2. Comment history page of a registered user (including the lecturer and students)
-
 4. Batch uploading of course materials
+6. Storing course materials (files) to the Apache Derby database
 
 
 
