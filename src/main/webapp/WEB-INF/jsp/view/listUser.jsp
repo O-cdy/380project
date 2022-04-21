@@ -7,9 +7,8 @@
             <input type="submit" value="Log out" />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <br /><br />
-        <a href="<c:url value="/lecture" />">Return to list lectures</a>
-        <h2>Users</h2>
+
+        <h2>User List</h2>
         <a href="<c:url value="/user/create" />">Create a User</a><br /><br />
         <c:choose>
             <c:when test="${fn:length(lectureUsers) == 0}">
@@ -42,4 +41,6 @@
                 </table>
             </c:otherwise>
         </c:choose>
+        <br /><br />
+        <a href="<c:url value="/lecture" />">Return to Homepage</a>
     </body>

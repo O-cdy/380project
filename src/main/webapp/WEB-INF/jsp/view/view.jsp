@@ -47,7 +47,7 @@
         <security:authorize access="hasAnyRole('USER','ADMIN')"> 
             <c:choose>
                 <c:when test="${fn:length(comments) == 0}">
-                    <i>There are comment in the system.</i>
+                    <i>There are no comments in the system.</i>
                 </c:when>
                 <c:otherwise>
                     <table>
@@ -69,7 +69,7 @@
                 </c:otherwise>
             </c:choose>
         </security:authorize>
-
+        <br /><br />
         <a href="<c:url value="/lecture/create/comment" />">Write new comment</a><br /><br />
 
         <a href="<c:url value="/lecture" />">Return to list lectures</a>

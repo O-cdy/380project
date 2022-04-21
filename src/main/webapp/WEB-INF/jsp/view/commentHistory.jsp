@@ -25,8 +25,9 @@
                 </table>
             </c:otherwise>
         </c:choose>
+        <br /><br />
         <form:form action="/project/lecture/list" method="GET">
-            <input type="submit" value="Cancel"/>
+            <input type="submit" value="Back"/>
         </form:form>
     </body>
 </html>

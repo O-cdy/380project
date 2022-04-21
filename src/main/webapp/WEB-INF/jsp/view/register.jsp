@@ -8,17 +8,20 @@
             <form:input type="text" path="username" /><br/><br/>
             <form:label path="password">Password</form:label><br/>
             <form:input type="text" path="password" /><br/><br/>
-            
+
             <form:label path="fullname">Fullname</form:label><br/>
             <form:input type="text" path="fullname" /><br/><br/>
-            
+
             <form:label path="phone">Phone Number</form:label><br/>
             <form:input type="text" path="phone" /><br/><br/>
-            
+
             <form:label path="address">Address</form:label><br/>
             <form:input type="text" path="address" /><br/><br/>
-            <br /><br />
+            
             <input type="submit" value="Register"/>
+        </form:form>
+        <form:form action="/project/olelogin" method="GET">
+            <input type="submit" value="Cancel"/>
         </form:form>
     </body>
 </html>

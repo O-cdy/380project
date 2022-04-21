@@ -23,7 +23,10 @@
             <form:checkbox path="roles" value="ROLE_USER" />ROLE_USER
             <form:checkbox path="roles" value="ROLE_ADMIN" />ROLE_ADMIN
             <br /><br />
-            <input type="submit" value="Add User"/>
+            <input type="submit" value="Create"/>
+        </form:form>
+        <form:form action="/project/user" method="GET">
+            <input type="submit" value="Cancel"/>
         </form:form>
     </body>
 </html>

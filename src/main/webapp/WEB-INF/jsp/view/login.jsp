@@ -5,13 +5,13 @@
     </head>
     <body>
         <c:if test="${param.error != null}">
-            <p>Login failed.</p>
+            <font color="red"><p>Login failed.</p></font>
         </c:if>
         <c:if test="${param.logout != null}">
-            <p>You have logged out.</p>
+            <font color="red"><p>You have logged out.</p></font>
         </c:if>
         <c:if test="${param.success != null}">
-            <p>Register successfully!</p>
+            <font color="blue"><p>Register successfully!</p></font>
         </c:if>
         <h2>Online Course Website Login</h2>
         <form action="olelogin" method="POST">
