@@ -245,7 +245,14 @@ public class VoteController {
         if (form.getMc_d() != null) {
             list.add(form.getMc_d());
         }
-        Vote vote = new Vote(form.getQuestion(), list);
+        String new_question="";
+        if(form.getQuestion().substring(form.getQuestion().length()-1).equals("?") ){
+            new_question=form.getQuestion();
+            
+        }else{
+            new_question=form.getQuestion()+"?";
+        }
+        Vote vote = new Vote(new_question, list);
         votedao.save(vote);
         return new RedirectView("/lecture/list", true);
 

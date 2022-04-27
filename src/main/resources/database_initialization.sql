@@ -35,6 +35,10 @@ CREATE TABLE lecture (
     PRIMARY KEY (id)
 );
 
+INSERT INTO lecture(lecture_title, lecturer) VALUES ('Overview of Web Applications', 'john');
+INSERT INTO lecture(lecture_title, lecturer) VALUES ('Servlet', 'john');
+INSERT INTO lecture(lecture_title, lecturer) VALUES ('JSP,JavaBean', 'john');
+
 CREATE TABLE attachment (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
     filename VARCHAR(255) DEFAULT NULL,
@@ -71,6 +75,24 @@ CREATE TABLE user_mc (
     FOREIGN KEY (question) REFERENCES vote(question)
 );
 
+INSERT INTO vote VALUES ('Have a nice day?');
+INSERT INTO vote_mc(question, mc) VALUES ('Have a nice day?','Yes');
+INSERT INTO vote_mc(question, mc) VALUES ('Have a nice day?','No');
+INSERT INTO vote_mc(question, mc) VALUES ('Have a nice day?','Not sure');
+INSERT INTO vote_mc(question, mc) VALUES ('Have a nice day?','None of the above');
+
+INSERT INTO vote VALUES ('Do you like LOL or Apex?');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you like LOL or Apex?','LOL');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you like LOL or Apex?','Apex');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you like LOL or Apex?','Both');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you like LOL or Apex?','None of the above');
+
+INSERT INTO vote VALUES ('Do you prefer JAVA or Python?');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you prefer JAVA or Python?','JAVA');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you prefer JAVA or Python?','Python');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you prefer JAVA or Python?','Both');
+INSERT INTO vote_mc(question, mc) VALUES ('Do you prefer JAVA or Python?','None of the above');
+
 -- create_votecomment.sql
 CREATE TABLE votecomment (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
@@ -78,6 +100,9 @@ CREATE TABLE votecomment (
     comment VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO votecomment(username, comment) VALUES ('tony', 'Hello!');
+INSERT INTO votecomment(username, comment) VALUES ('mary', 'Hi!');
 
 -- create_comment.sql
 CREATE TABLE comment (
@@ -87,6 +112,9 @@ CREATE TABLE comment (
     PRIMARY KEY (id)
 );
 
+INSERT INTO comment(username, comment) VALUES ('tony', 'Welcome to this lecture!');
+INSERT INTO comment(username, comment) VALUES ('mary', 'Hello everyone!');
+
 -- create_allcomment.sql
 CREATE TABLE allcomment (
     id INTEGER NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
@@ -94,6 +122,11 @@ CREATE TABLE allcomment (
     comment VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
+
+INSERT INTO allcomment(username, comment) VALUES ('tony', 'Welcome to this lecture!');
+INSERT INTO allcomment(username, comment) VALUES ('mary', 'Hello everyone!');
+INSERT INTO allcomment(username, comment) VALUES ('tony', 'Hello!');
+INSERT INTO allcomment(username, comment) VALUES ('mary', 'Hi!');
 
 
 

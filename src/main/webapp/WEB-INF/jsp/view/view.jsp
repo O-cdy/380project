@@ -10,15 +10,21 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form:form>
         <h2>Lecture #${lectureId}: <c:out value="${lecture.lectureTitle}" /></h2>
+        <i>Lecturer - <c:out value="${lecture.lecturer}" /></i>
         <security:authorize access="hasRole('ADMIN') or principal.username=='${lecture.lecturer}'">
             [<a href="<c:url value="/lecture/edit/${lecture.id}" />">Edit</a>]
         </security:authorize>
         <security:authorize access="hasRole('ADMIN')">
             [<a href="<c:url value="/lecture/delete/${lecture.id}" />">Delete</a>]
         </security:authorize>
-        <i>Lecturer - <c:out value="${lecture.lecturer}" /></i><br /><br />
-        <c:if test="${fn:length(lecture.attachments) > 0}">
+        <br /><br />
+        <c:if test="${fn:length(lecture.attachments) == 0}">
             <p>Attachments:</p>
+            <p>There are not lecture note or tutorial note in this lecture.</p>
+            <br />
+        </c:if>
+        <c:if test="${fn:length(lecture.attachments) > 0}">
+            <b>Attachments:</b>
             Lecture Notes:<br />
             <%--<c:if test="${!status.first}">, </c:if>--%>
             <c:forEach items="${lecture.attachments}" var="attachment"
@@ -43,7 +49,7 @@
             </c:forEach><br />
         </c:if>
 
-        <h2>Lecture Comment: </h2><br>
+        <b>Lecture Comment: </b><br>
         <security:authorize access="hasAnyRole('USER','ADMIN')"> 
             <c:choose>
                 <c:when test="${fn:length(comments) == 0}">

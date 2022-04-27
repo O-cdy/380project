@@ -2,11 +2,7 @@
 <html>
     <head><title>User Management</title></head>
     <body>
-        <c:url var="logoutUrl" value="/cslogout"/>
-        <form action="${logoutUrl}" method="post">
-            <input type="submit" value="Log out" />
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
+        
         <h2>Create a User</h2>
         <form:form method="POST" enctype="multipart/form-data" modelAttribute="lectureUser">
             <form:label path="username">Username</form:label><br/>

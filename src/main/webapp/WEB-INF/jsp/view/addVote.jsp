@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
     <head>
-        <title>Title</title>
+        <title>Poll Question Management</title>
     </head>
     <body>
 
@@ -10,7 +10,7 @@
             <input type="submit" value="Log out" />
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h2>Create a poll question</h2>
+        <h2>Create a Poll Question</h2>
         <form:form method="POST" enctype="multipart/form-data" modelAttribute="Vote">
             <form:label path="question">Question</form:label><br/>
             <form:input type="text" path="question" placeholder=""/><br/><br/>
